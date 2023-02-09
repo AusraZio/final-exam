@@ -1,9 +1,9 @@
-
+import Posts from "./Posts";
 
 const Main = () => {
   return (
     <>
-      
+      <Posts />
     </>
   );
 }

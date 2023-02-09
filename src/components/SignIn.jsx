@@ -1,43 +1,81 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import UserContext from "../contexts/UserContext";
 
-const SignIn = (props) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('')
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  }
-  
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  }
-  
+const SignIn = () => {
+  // Use "useNavigate" hook to redirect the user to the main page after a successful login
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
+
+  // Use "useContext" hook to get access to the "UserContext" and set the logged in user
+  const { users, setLoggedInUser } = useContext(UserContext);
+
+  // Set form inputs and status variables
+  const [formInputs, setFormInputs] = useState({
+    userName: "",
+    password: ""
+  });
+  const [failedLogIn, setFailedLogIn] = useState(false);
+  const [userIsBanned, setUserIsBanned] = useState(false);
+
+  // Function to be executed in the "onSubmit" method
+  const handleSubmit = e => {
     e.preventDefault();
-    if (email === 'test@example.com' && password === 'password123') {
-      props.handleLogin(email, password);
+
+    // Find the logged in user among all users based on the entered login data
+    const loggedInUser = users.find(
+      user =>
+        user.userName === formInputs.userName &&
+        user.password === formInputs.password
+    );
+
+    // Check if the user is banned
+    if (!loggedInUser.isBanned) {
+      // If not, set the logged in user and redirect to the main page
+      setLoggedInUser(loggedInUser);
       navigate("/");
+    } else if (loggedInUser.isBanned) {
+      // If yes, set the "userIsBanned" status
+      setUserIsBanned(true);
+    } else {
+      // If the user is not found, set the "failedLogIn" status
+      setFailedLogIn(true);
     }
   };
-  
+
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <h1 className="form-title">Log in</h1>
-      <label className="form-label">
-        Email:
-        <input className="form-input" type="email" value={email} onChange={handleEmailChange} />
-      </label>
-      <br />
-      <label className="form-label">
-        Password:
-        <input className="form-input" type="password" value={password} onChange={handlePasswordChange} />
-      </label>
-      <br />
-      <button className="form-button" type="submit">Log in</button>
-    </form>
+    <div className="login-form">
+      <form onSubmit={handleSubmit}>
+        <label>
+          UserName:
+          <input
+            type="text"
+            name="userName"
+            value={formInputs.userName}
+            onChange={e =>
+              setFormInputs({ ...formInputs, userName: e.target.value })
+            }
+          />
+        </label>
+        <label>
+          Password:
+          <input
+            type="password"
+            name="password"
+            value={formInputs.password}
+            onChange={e =>
+              setFormInputs({ ...formInputs, password: e.target.value })
+            }
+          />
+        </label>
+        <input type="submit" value="Log In" />
+        {failedLogIn && <span>Wrong log in info</span>}
+        {userIsBanned && <span>Your user has been banned</span>}
+      </form>
+    </div>
   );
 };
 
 export default SignIn;
+
+
+
