@@ -29,13 +29,10 @@ const SignIn = () => {
     );
 
     // Check if the user is banned
-    if (!loggedInUser.isBanned) {
+    if (loggedInUser) {
       // If not, set the logged in user and redirect to the main page
       setLoggedInUser(loggedInUser);
       navigate("/");
-    } else if (loggedInUser.isBanned) {
-      // If yes, set the "userIsBanned" status
-      setUserIsBanned(true);
     } else {
       // If the user is not found, set the "failedLogIn" status
       setFailedLogIn(true);
@@ -69,7 +66,6 @@ const SignIn = () => {
         </label>
         <input type="submit" value="Log In" />
         {failedLogIn && <span>Wrong log in info</span>}
-        {userIsBanned && <span>Your user has been banned</span>}
       </form>
     </div>
   );

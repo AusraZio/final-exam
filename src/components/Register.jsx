@@ -49,7 +49,7 @@ const Register = () => {
       id: Date.now(),
       level: 'user',
       isBanned: false
-    };
+    }; 
 
     addNewUser(newUser);
     setLoggedInUser(newUser);

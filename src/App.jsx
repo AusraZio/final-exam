@@ -11,6 +11,10 @@ import UserPage from './components/UserPage';
 import UsersPage from './components/UsersPage';
 import EditPostForm from './components/EditPostForm';
 
+
+
+
+
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -32,6 +36,7 @@ const App = () => {
           <Route path="/login" element={<SignIn />} />
           <Route path="/newPost" element={<NewPostForm />} />
           <Route path="/editPost/:id" element={<EditPostForm />} />
+          
         </Routes>
       </main>
       <Footer />

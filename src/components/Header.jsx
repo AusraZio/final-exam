@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import UserInfo from "./UserInfo";
 import UserContext from "../contexts/UserContext";
 import { useContext } from "react";
-
+ 
 const Header = () => {
   const { loggedInUser } = useContext(UserContext);
 

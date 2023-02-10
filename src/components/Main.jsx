@@ -1,5 +1,6 @@
 import Posts from "./Posts";
 
+
 const Main = () => {
   return (
     <>
@@ -8,4 +9,4 @@ const Main = () => {
   );
 }
  
-export default Main;
+export default Main; 

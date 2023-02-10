@@ -323,3 +323,35 @@
 .footer-copyright {
   color: #333;
 }
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.comment-textarea {
+  padding: 10px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  resize: none;
+}
+
+.comment-submit-button {
+  width: 100px;
+  padding: 10px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.comment-submit-button:hover {
+  background-color: darkblue;
+}
+
