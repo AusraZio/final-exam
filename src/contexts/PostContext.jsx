@@ -1,16 +1,17 @@
 import { createContext, useState, useEffect } from "react";
 
+// Sukuriamas PostContext objektas
 const PostContext = createContext();
 
+// Sukuriama PostProvider komponentė, kurioje yra definuojama būsena ir vykdomi duomenų užklausų CRUD veiksmai
 const PostProvider = ({ children }) => {
-
-  
+  // Būsena: pažymėti įrašai ir visi įrašai
   const [markedPosts, setMarkedPosts] = useState([]);
-  const [posts, setPosts] = useState([
- 
-  ]);
+  const [posts, setPosts] = useState([]);
 
+  // Funkcija, kuri pakviečiama kai komponentas yra sugeneruojamas
   useEffect(() => {
+    // Siunčiama užklausa, siekiant gauti įrašus iš serverio
     fetch('http://localhost:5000/posts')
       .then(res => {
         if (res.status !== 200) throw new Error('Error fetching data')
@@ -23,6 +24,7 @@ const PostProvider = ({ children }) => {
       });
   }, []);
 
+  // Funkcija, kuri pažymi arba nuima pažymėjimą iš įrašo
   const toggleMark = (post) => {
     if (markedPosts.includes(post)) {
       setMarkedPosts(markedPosts.filter(p => p !== post));
@@ -31,6 +33,7 @@ const PostProvider = ({ children }) => {
     }
   }
 
+  // Funkcija, kuri prideda naują įrašą
   const addNewPost = (newPost) => {
     fetch('http://localhost:5000/posts', {
       method: 'POST',
@@ -43,6 +46,7 @@ const PostProvider = ({ children }) => {
       });
   }
 
+  // Funkcija, kuri pašalina įrašą
   const deletePost = (id) => {
     fetch(`http://localhost:5000/posts/${id}`, {
       method: 'DELETE',
@@ -52,6 +56,7 @@ const PostProvider = ({ children }) => {
       });
   }
 
+  // Funkcija, kuri atnaujina įrašą
   const updatePost = (id, updatedPost) => {
     fetch(`http://localhost:5000/posts/${id}`, {
       method: 'PUT',
@@ -64,7 +69,7 @@ const PostProvider = ({ children }) => {
       });
   }
 
-
+  // Grąžinama PostContext.Provider komponentė su reikšmėmis, kurios bus naudojamos kitose komponentėse
   return (
     <PostContext.Provider
       value={{
@@ -82,5 +87,6 @@ const PostProvider = ({ children }) => {
   );
 }
 
+// Eksportuojamos PostProvider ir PostContext objektai
 export { PostProvider };
 export default PostContext;

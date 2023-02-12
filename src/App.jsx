@@ -36,7 +36,6 @@ const App = () => {
           <Route path="/login" element={<SignIn />} />
           <Route path="/newPost" element={<NewPostForm />} />
           <Route path="/editPost/:id" element={<EditPostForm />} />
-          
         </Routes>
       </main>
       <Footer />

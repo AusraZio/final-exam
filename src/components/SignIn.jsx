@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
 
 const SignIn = () => {
-  // Use "useNavigate" hook to redirect the user to the main page after a successful login
+  // Naudokite "useNavigate" kintamąjį, kad nukreiptumėte vartotoją į pagrindinį puslapį sėkmingai prisijungus
   const navigate = useNavigate();
 
-  // Use "useContext" hook to get access to the "UserContext" and set the logged in user
+  // Naudokite "useContext" kintamąjį, kad gautumėte prieigą prie "UserContext" ir nustatytumėte prisijungusio vartotojo informaciją
   const { users, setLoggedInUser } = useContext(UserContext);
 
-  // Set form inputs and status variables
+  // Nustatykite formos laukų ir būsenos kintamuosius
   const [formInputs, setFormInputs] = useState({
     userName: "",
     password: ""
@@ -17,24 +17,24 @@ const SignIn = () => {
   const [failedLogIn, setFailedLogIn] = useState(false);
   const [userIsBanned, setUserIsBanned] = useState(false);
 
-  // Function to be executed in the "onSubmit" method
+  // Funkcija, kuri bus vykdoma "onSubmit" metodo metu
   const handleSubmit = e => {
     e.preventDefault();
 
-    // Find the logged in user among all users based on the entered login data
+    // Raskite prisijungusio vartotojo duomenis tarp visų vartotojų pagal įvestus prisijungimo duomenis
     const loggedInUser = users.find(
       user =>
         user.userName === formInputs.userName &&
         user.password === formInputs.password
     );
 
-    // Check if the user is banned
+    // Patikrinkite, ar vartotojas yra užblokuotas
     if (loggedInUser) {
-      // If not, set the logged in user and redirect to the main page
+      // Jei ne, nustatykite prisijungusio vartotojo informaciją ir nukreipkite į pagrindinį puslapį
       setLoggedInUser(loggedInUser);
       navigate("/");
     } else {
-      // If the user is not found, set the "failedLogIn" status
+      // Jei vartotojas nerastas, nustatykite "failedLogIn" būseną
       setFailedLogIn(true);
     }
   };
@@ -43,7 +43,7 @@ const SignIn = () => {
     <div className="login-form">
       <form onSubmit={handleSubmit}>
         <label>
-          UserName:
+        UserName:
           <input
             type="text"
             name="userName"
@@ -54,7 +54,7 @@ const SignIn = () => {
           />
         </label>
         <label>
-          Password:
+        Password:
           <input
             type="password"
             name="password"

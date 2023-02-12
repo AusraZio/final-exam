@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 const NewPostForm = () => {
   // nustatome pradinius formos laukų reikšmes
   const [formInputs, setFormInputs] = useState({
-    heading: '', // antraštė
-    content: '' // turinys
+    heading: '', 
+    content: '' 
   });
 
   // gauname funkcijas iš konteksto

@@ -1,11 +1,14 @@
 import { createContext, useState, useEffect } from "react";
 
+// Sukuriame komentaru konteksta
 const CommentContext = createContext();
 
 const CommentProvider = ({ children }) => {
 
+  // Sukuriame komentaru busena su useState
   const [comments, setComments] = useState([]);
 
+  // Sukuriame useEffect kad gauti komentarus is serverio ir atnaujinti komentaru busena
   useEffect(() => {
     fetch('http://localhost:5000/comments')
       .then(res => {
@@ -19,6 +22,7 @@ const CommentProvider = ({ children }) => {
       });
   }, []);
 
+  // Funkcija kuri leidzia prideti nauja komentara i komentaru busena
   const addNewComment = (newComment) => {
     fetch('http://localhost:5000/comments', {
       method: 'POST',
@@ -31,6 +35,7 @@ const CommentProvider = ({ children }) => {
       });
   }
 
+  // Funkcija kuri leidzia istrinti komentara is komentaru busenos
   const deleteComment = (id) => {
     fetch(`http://localhost:5000/comments/${id}`, {
       method: 'DELETE',
@@ -40,6 +45,7 @@ const CommentProvider = ({ children }) => {
       });
   }
 
+  // Funkcija kuri leidzia atnaujinti komentara komentaru busenoje
   const updateComment = (id, updatedComment) => {
     fetch(`http://localhost:5000/comments/${id}`, {
       method: 'PUT',
@@ -53,6 +59,7 @@ const CommentProvider = ({ children }) => {
   }
 
   return (
+    // Perduodame reiksmes per komentaru konteksta
     <CommentContext.Provider value={{ comments, addNewComment, deleteComment, updateComment }}>
       {children}
     </CommentContext.Provider>

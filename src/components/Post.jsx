@@ -6,25 +6,25 @@ import React, { useState } from 'react';
 import Comment from "./Comment";
 
 const Post = ({ data }) => {
-  // Destructure values from the UserContext
+  // Pasiima reikšmes iš UserContext
   const { users, loggedInUser } = useContext(UserContext);
-  // Destructure values from the PostContext
+  // Pasiima  reikšmes iš PostContext
   const { deletePost } = useContext(PostContext);
   
-  // State hook to store the post's bookmarked status
+  // State kintamasis saugoti žymėjimo statusui
   const [isBookmarked, setIsBookmarked] = useState(false);
 
-  // Function to handle bookmarking the post
+  // Funkcija tvarkanti žymėjimą
   const handleBookmark = () => {
     setIsBookmarked(!isBookmarked);
   };
 
-  // Find the user who posted this message by matching the user's ID to the message author's ID
+  // Ieško žinutės autoriaus pagal jo ID
   const postOwner = users.find(user => user.id === data.userId);
 
-  // Function to handle adding a comment
+  // Funkcija tvarkanti komentaro pridėjimą
   const addComment = (postId, comment) => {
-    // Your implementation to add a comment
+    // Įgyvendinimas komentaro pridėjimui
   };
 
   return (
@@ -35,13 +35,13 @@ const Post = ({ data }) => {
         <img
           className="post-header-avatar"
           src={postOwner.avatar}
-          alt="user avatar"
+          alt="vartotojo avataras"
         />
         <span className="post-header-username">{postOwner.userName}</span>
         </>
 }
         {
-          // Only show the delete and edit buttons if the logged in user is the post owner
+          // Rodo tik trinti ir redaguoti mygtukus, jei prisijungęs vartotojas yra žinutės savininkas
           loggedInUser && loggedInUser.id === postOwner.id &&
           <>
             <button className="post-header-delete-button" onClick={() => deletePost(data.id)}>Delete</button>
